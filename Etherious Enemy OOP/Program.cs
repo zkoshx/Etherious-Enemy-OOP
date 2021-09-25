@@ -73,11 +73,14 @@ namespace Etherious_Enemy_OOP
             {
                 if (HP < maxHP/4)
                 {
-                    //sphrase <
+                    sphrase = phrases[rnd.Next(5,7)];
+                    squote = quotes[rnd.Next(3)];
                 }
-                sphrase = quotes[rnd.Next(1,5)];
-                squote = quotes[rnd.Next(3)];
-
+                else
+                {
+                    sphrase = phrases[rnd.Next(1, 5)];
+                    squote = quotes[rnd.Next(3)];
+                }
             }
         }
         

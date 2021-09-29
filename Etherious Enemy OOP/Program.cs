@@ -21,8 +21,8 @@ namespace Etherious_Enemy_OOP
             LV = _LV;
         }
 
-        public string[] phrases;
-        public string[] quotes;
+        public string[] phrases = new string[99];
+        public string[] quotes = new string[99];
         public string sphrase;
         public string squote;
 
@@ -67,6 +67,16 @@ namespace Etherious_Enemy_OOP
             sphrase = "You threatened the Froggit";
             squote = quotes[4];
         }
+        public void Compliment()
+        {
+            sphrase = "You told Froggit that it looks nice today";
+            squote = quotes[3];
+        }
+        public void Mystify()
+        {
+            sphrase = phrases[4];
+            squote = quotes[2];
+        }
         public void ping(string path, int mdr, Random rnd)
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
@@ -97,11 +107,8 @@ namespace Etherious_Enemy_OOP
 
             List<basicenemy> encountered = new List<basicenemy>();
 
-            Enemy_1 test = new Enemy_1(1, 2, 3, 4);
-            Console.WriteLine(test.HP);
-            Console.WriteLine(test.AP);
-            Console.WriteLine(test.DF);
-            Console.WriteLine(test.LV);
+            Enemy_1 test = new Enemy_1(3, 4, 3, 4);
+            test.check();
 
             string path = "Neutral";
             int mdr;

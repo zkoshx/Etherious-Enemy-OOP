@@ -26,7 +26,7 @@ namespace Etherious_Enemy_OOP
         public string sphrase;
         public string squote;
 
-        public List<Action> sparesequence = new List<Action>();
+        
 
         public void check()
         {
@@ -40,6 +40,7 @@ namespace Etherious_Enemy_OOP
 
     class Enemy_1 : basicenemy
     {
+        
         public Enemy_1(int hp, int ap, int df, int lv) : base(hp, ap, df, lv)
         {
 
@@ -81,9 +82,9 @@ namespace Etherious_Enemy_OOP
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
             {
-                if (HP < maxHP/4)
+                if (HP < maxHP / 4)
                 {
-                    sphrase = phrases[rnd.Next(5,7)];
+                    sphrase = phrases[rnd.Next(5, 7)];
                     squote = quotes[rnd.Next(3)];
                 }
                 else
@@ -93,9 +94,6 @@ namespace Etherious_Enemy_OOP
                 }
             }
         }
-        
-
-
     }
 
 
@@ -112,7 +110,9 @@ namespace Etherious_Enemy_OOP
 
             string path = "Neutral";
             int mdr;
-
+            int pointer = -1;
+            int[] stack = { };
+            int max = stack.Length;
 
         }
     }

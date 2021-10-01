@@ -26,8 +26,6 @@ namespace Etherious_Enemy_OOP
         public string sphrase;
         public string squote;
 
-        
-
         public void check()
         {
             Console.WriteLine(name);
@@ -67,17 +65,51 @@ namespace Etherious_Enemy_OOP
         {
             sphrase = "You threatened the Froggit";
             squote = quotes[4];
+            if (sparesequence.Peek() == "Threaten")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
         }
         public void Compliment()
         {
             sphrase = "You told Froggit that it looks nice today";
             squote = quotes[3];
+            if (sparesequence.Peek() == "Compliment")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
         }
         public void Mystify()
         {
             sphrase = phrases[4];
             squote = quotes[2];
+            if (sparesequence.Peek() == "Mystify")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
         }
+        public void resetstack()
+        {
+            sparesequence.Clear();
+            sparesequence.Push("Compliment");
+            sparesequence.Push("Compliment");
+            sparesequence.Push("Mystify");
+        }
+        Stack sparesequence = new Stack();
+
+
         public void ping(string path, int mdr, Random rnd)
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
@@ -110,10 +142,9 @@ namespace Etherious_Enemy_OOP
 
             string path = "Neutral";
             int mdr;
-            int pointer = -1;
-            int[] stack = { };
-            int max = stack.Length;
 
+            
+            
         }
     }
 }

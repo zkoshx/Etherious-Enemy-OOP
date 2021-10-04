@@ -65,7 +65,7 @@ namespace Etherious_Enemy_OOP
         {
             sphrase = "You threatened the Froggit";
             squote = quotes[4];
-            if (sparesequence.Peek() == "Threaten")
+            if (sparesequence.Peek().ToString() == "Threaten")
             {
                 sparesequence.Pop();
             }
@@ -78,7 +78,7 @@ namespace Etherious_Enemy_OOP
         {
             sphrase = "You told Froggit that it looks nice today";
             squote = quotes[3];
-            if (sparesequence.Peek() == "Compliment")
+            if (sparesequence.Peek().ToString() == "Compliment")
             {
                 sparesequence.Pop();
             }
@@ -91,7 +91,7 @@ namespace Etherious_Enemy_OOP
         {
             sphrase = phrases[4];
             squote = quotes[2];
-            if (sparesequence.Peek() == "Mystify")
+            if (sparesequence.Peek().ToString() == "Mystify")
             {
                 sparesequence.Pop();
             }
@@ -114,16 +114,27 @@ namespace Etherious_Enemy_OOP
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
             {
-                if (HP < maxHP / 4)
+                if (sphrase is null && squote is null)
                 {
-                    sphrase = phrases[rnd.Next(5, 7)];
-                    squote = quotes[rnd.Next(3)];
+                    if (HP < maxHP / 4)
+                    {
+                        sphrase = phrases[rnd.Next(5, 7)];
+                        squote = quotes[rnd.Next(3)];
+                    }
+                    else
+                    {
+                        sphrase = phrases[rnd.Next(1, 5)];
+                        squote = quotes[rnd.Next(3)];
+                    }
                 }
                 else
                 {
-                    sphrase = phrases[rnd.Next(1, 5)];
-                    squote = quotes[rnd.Next(3)];
+                    if (sparesequence.Count == 0)
+                    {
+                        //is spareable
+                    }
                 }
+               
             }
         }
     }

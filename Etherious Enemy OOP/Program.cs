@@ -57,9 +57,16 @@ namespace Etherious_Enemy_OOP
             quotes[2] = "Meow.";
             quotes[3] = "(Blushes deeply) Ribbit...";
             quotes[4] = "Shiver shiver.";
-            
+            resetstack();
         }
         int maxHP;
+        public void WhatAreMyActions()
+        {
+            Console.WriteLine("Check");
+            Console.WriteLine("Threaten");
+            Console.WriteLine("Compliment");
+            Console.WriteLine("Mystify");
+        }
 
         public void Threaten()
         {
@@ -103,11 +110,16 @@ namespace Etherious_Enemy_OOP
         public void resetstack()
         {
             sparesequence.Clear();
-            sparesequence.Push("Compliment");
+            sparesequence.Push("Threaten");
             sparesequence.Push("Compliment");
             sparesequence.Push("Mystify");
         }
         Stack sparesequence = new Stack();
+
+        public void viewstack(Stack stack)
+        {
+            stack.ToArray();
+        }
 
 
         public void ping(string path, int mdr, Random rnd)
@@ -149,8 +161,42 @@ namespace Etherious_Enemy_OOP
             List<basicenemy> encountered = new List<basicenemy>();
 
             Enemy_1 test = new Enemy_1(3, 4, 3, 4);
-            test.check();
+            ACT(test);
 
+
+            static void ACT(Enemy_1 test)
+            {
+                Console.WriteLine("ACT");
+                test.WhatAreMyActions();
+                string input = Console.ReadLine();
+                input = input.ToLower();
+                switch (input)
+                {
+                    case ("compliment"):
+                        test.Compliment();
+                        break;
+
+                    case ("threaten"):
+                        test.Threaten();
+                        break;
+
+                    case ("mystify"):
+                        test.Mystify();
+                        break;
+
+                    case ("check"):
+                        test.check();
+                        break;
+
+                    default:
+                        ACT(test);
+                        break;
+
+                }
+
+                
+            }
+            
             string path = "Neutral";
             int mdr;
 

@@ -115,13 +115,6 @@ namespace Etherious_Enemy_OOP
             sparesequence.Push("Mystify");
         }
         Stack sparesequence = new Stack();
-
-        public void viewstack(Stack stack)
-        {
-            stack.ToArray();
-        }
-
-
         public void ping(string path, int mdr, Random rnd)
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
@@ -150,6 +143,39 @@ namespace Etherious_Enemy_OOP
             }
         }
     }
+
+    class Enemy_2 : basicenemy
+    {
+        public Enemy_2(int hp, int ap, int df, int lv) : base(hp, ap, df, lv)
+        {
+
+            maxHP = hp;
+            name = "Knight Knight";
+            phrases[0] = "Knight Knight blocks the way";
+            phrases[1] = "Knight Knight watches quietly";
+            phrases[2] = "Smells like stardust";
+            phrases[3] = "This megaton mercenary wields the Good Morningstar";
+            phrases[4] = "";
+            phrases[5] = "";
+            phrases[6] = "";
+
+            quotes[0] = "Adieu.";
+            quotes[1] = "Goodbye.";
+            quotes[2] = "Good Knight";
+            quotes[3] = "Close your eyes...";
+            quotes[4] = "Fare well.";
+            quotes[5] = "Zzzzz...";
+            quotes[6] = "... It's OK";
+            resetstack();
+        }
+        int maxHP;
+
+        public void Talk()
+        {
+
+        }
+    }
+
 
 
     class Program

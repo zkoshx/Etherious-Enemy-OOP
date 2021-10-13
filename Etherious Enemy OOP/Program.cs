@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Etherious_Enemy_OOP
 {
+
     class basicenemy
     {
         public string name;
@@ -60,12 +61,15 @@ namespace Etherious_Enemy_OOP
             resetstack();
         }
         int maxHP;
-        public void WhatAreMyActions()
+        public string[] WhatAreMyActions()
         {
             Console.WriteLine("Check");
             Console.WriteLine("Threaten");
             Console.WriteLine("Compliment");
             Console.WriteLine("Mystify");
+            string[] actions = new string[] {"Check", "Threaten", "Compliment", "Mystify"};
+
+            return actions;
         }
 
         public void Threaten()
@@ -155,9 +159,9 @@ namespace Etherious_Enemy_OOP
             phrases[1] = "Knight Knight watches quietly";
             phrases[2] = "Smells like stardust";
             phrases[3] = "This megaton mercenary wields the Good Morningstar";
-            phrases[4] = "";
-            phrases[5] = "";
-            phrases[6] = "";
+            phrases[4] = "Knight Knight is getting tired";
+            phrases[5] = "Knight Knight is wounded";
+            phrases[6] = "Knight Knight wants to rest";
 
             quotes[0] = "Adieu.";
             quotes[1] = "Goodbye.";
@@ -169,17 +173,88 @@ namespace Etherious_Enemy_OOP
             resetstack();
         }
         int maxHP;
+        public void WhatAreMyActions()
+        {
+            Console.WriteLine("Check");
+            Console.WriteLine("Talk");
+            Console.WriteLine("Sing");
+        }
 
         public void Talk()
         {
+            sphrase = "You talked about the weather";
+            squote = quotes[6];
+            if (sparesequence.Peek().ToString() == "Talk")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+        public void Sing()
+        {
+            sphrase = phrases[4];
+            squote = quotes[5];
+            if (sparesequence.Peek().ToString() == "Sing")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+        Stack sparesequence = new Stack();
 
+        public void resetstack()
+        {
+            sparesequence.Clear();
+            sparesequence.Push("Sing");
+            sparesequence.Push("Sing");
+            sparesequence.Push("Sing");
+        }
+
+        public void ping(string path, int mdr, Random rnd)
+        {
+            if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
+            {
+                if (sphrase is null && squote is null)
+                {
+                    if (HP < maxHP / 4)
+                    {
+                        sphrase = phrases[rnd.Next(4, 7)];
+                        squote = quotes[rnd.Next(5,7)];
+                    }
+                    else
+                    {
+                        sphrase = phrases[rnd.Next(1, 5)];
+                        squote = quotes[rnd.Next(5)];
+                    }
+                }
+                else
+                {
+                    if (sparesequence.Count == 0)
+                    {
+                        //is spareable
+                    }
+                }
+
+            }
         }
     }
 
 
 
     class Program
+    {
+        static void EngageAct(basicenemy enemy)
         {
+
+        }
+
+
         static void Main(string[] args)
         {
             Random pinger = new Random();
@@ -217,10 +292,7 @@ namespace Etherious_Enemy_OOP
                     default:
                         ACT(test);
                         break;
-
-                }
-
-                
+                }                
             }
             
             string path = "Neutral";

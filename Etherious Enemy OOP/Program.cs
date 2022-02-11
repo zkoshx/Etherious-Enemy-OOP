@@ -110,7 +110,7 @@ namespace Etherious_Enemy_OOP
             {
                 resetstack();
             }
-        }
+        } 
         public void resetstack()
         {
             sparesequence.Clear();
@@ -119,7 +119,7 @@ namespace Etherious_Enemy_OOP
             sparesequence.Push("Mystify");
         }
         Stack sparesequence = new Stack();
-        public void ping(string path, int mdr, Random rnd)
+        public void ping(string path, Random rnd)
         {
             if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
             {
@@ -140,7 +140,7 @@ namespace Etherious_Enemy_OOP
                 {
                     if (sparesequence.Count == 0)
                     {
-                        //is spareable
+                        Console.WriteLine("Enemy is spareable");
                     }
                 }
                
@@ -237,7 +237,7 @@ namespace Etherious_Enemy_OOP
                 {
                     if (sparesequence.Count == 0)
                     {
-                        //is spareable
+                        Console.WriteLine("Enemy is spareable");
                     }
                 }
 
@@ -245,13 +245,145 @@ namespace Etherious_Enemy_OOP
         }
     }
 
+    class Enemy_3 : basicenemy
+    {
+        public Enemy_3(int hp, int ap, int df, int lv) : base(hp, ap, df, lv)
+        {
 
+            maxHP = hp;
+            name = "Aaron";
+            phrases[0] = "Aaron flexes in!";
+            phrases[1] = "Aaron is admiring his own muscles";
+            phrases[2] = "Smells like an underwater barnyard";
+            phrases[3] = "Aaron is splashing you playfully";
+            phrases[4] = "Aaron is sweating bullets. Literally.";
+            phrases[5] = "You tell Aaron to go away";
+            phrases[6] = "You Flex, Aaron flexes harder";
+            phrases[7] = "Aaron's muscles droop comically";
+
+            quotes[0] = "I sure do love muscles ;)";
+            quotes[1] = "Come on in, the water's fine ;)";
+            quotes[2] = "No need for a swimming suit ;)";
+            quotes[3] = "Flexing contest? Ok, flex more ;)";
+            quotes[4] = "Nice!! I won't lose tho ;)";
+            quotes[5] = "Wow! Spunky! Love it ;)";
+            quotes[6] = "Feisty, huh?? ;)";
+            quotes[7] = "Haha, nice. My kind of joke ;)";
+            quotes[8] = "Don't get too close ;)";
+            resetstack();
+        }
+        int maxHP;
+
+        public string[] WhatAreMyActions()
+        {
+            Console.WriteLine("Flex");
+            Console.WriteLine("Shoo");
+            Console.WriteLine("Joke");
+            Console.WriteLine("Touch");
+            string[] actions = new string[] { "Flex", "Shoo", "Joke", "Touch" };
+
+            return actions;
+        }
+
+        public void Flex(Random rnd)
+        {
+            sphrase = phrases[6];
+            squote = quotes[rnd.Next(3,5)];
+            if (sparesequence.Peek().ToString() == "Flex")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+
+        public void Shoo(Random rnd)
+        {
+            sphrase = phrases[5];
+            squote = quotes[rnd.Next(5, 7)];
+            if (sparesequence.Peek().ToString() == "Shoo")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+        
+        public void Joke()
+        {
+            sphrase = null;
+            squote = quotes[7];
+            if (sparesequence.Peek().ToString() == "Joke")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+
+        public void Touch()
+        {
+            sphrase = null;
+            squote = quotes[8];
+            if (sparesequence.Peek().ToString() == "Touch")
+            {
+                sparesequence.Pop();
+            }
+            else
+            {
+                resetstack();
+            }
+        }
+        Stack sparesequence = new Stack();
+
+        public void resetstack()
+        {
+            sparesequence.Clear();
+            sparesequence.Push("Flex");
+            sparesequence.Push("Flex");
+            sparesequence.Push("Flex");
+        }
+
+        public void ping(string path, int mdr, Random rnd)
+        {
+            if (path == "Neutral" || path == "Pacifist" || path == "Genocide")
+            {
+                if (sphrase is null && squote is null)
+                {
+                    if (HP < maxHP / 4)
+                    {
+                        sphrase = phrases[7];
+                        squote = quotes[rnd.Next(3)];
+                    }
+                    else
+                    {
+                        sphrase = phrases[rnd.Next(5)];
+                        squote = quotes[rnd.Next(3)];
+                    }
+                }
+                else
+                {
+                    if (sparesequence.Count == 0)
+                    {
+                        Console.WriteLine("Enemy is spareable");
+                    }
+                }
+
+            }
+        }
+    }
 
     class Program
     {
         static void EngageAct(basicenemy enemy)
         {
-
+            
         }
 
 
@@ -262,37 +394,51 @@ namespace Etherious_Enemy_OOP
             List<basicenemy> encountered = new List<basicenemy>();
 
             Enemy_1 test = new Enemy_1(3, 4, 3, 4);
-            ACT(test);
+            ACT(test, pinger);
 
 
-            static void ACT(Enemy_1 test)
+            static void ACT(Enemy_1 test, Random pinger)
             {
-                Console.WriteLine("ACT");
-                test.WhatAreMyActions();
-                string input = Console.ReadLine();
-                input = input.ToLower();
-                switch (input)
+                while (test.HP>0)
                 {
-                    case ("compliment"):
-                        test.Compliment();
-                        break;
+                    
+                    Console.WriteLine(" ");
+                    Console.WriteLine("ACT");
+                    test.WhatAreMyActions();
+                    Console.WriteLine(" ");
+                    string input = Console.ReadLine();
+                    input = input.ToLower();
+                    switch (input)
+                    {
+                        case ("compliment"):
+                            test.Compliment();
+                            test.ping("Neutral", pinger);
+                            break;
 
-                    case ("threaten"):
-                        test.Threaten();
-                        break;
+                        case ("threaten"):
+                            test.Threaten();
+                            test.ping("Neutral", pinger);
+                            break;
 
-                    case ("mystify"):
-                        test.Mystify();
-                        break;
+                        case ("mystify"):
+                            test.Mystify();
+                            test.ping("Neutral", pinger);
+                            break;
 
-                    case ("check"):
-                        test.check();
-                        break;
+                        case ("check"):
+                            test.sphrase = null;
+                            test.squote = null;
+                            test.check();
+                            test.ping("Neutral", pinger);
+                            break;
 
-                    default:
-                        ACT(test);
-                        break;
-                }                
+                        default:
+                            ACT(test, pinger);
+                            break;
+                    }
+                    Console.WriteLine(test.sphrase);
+                    Console.WriteLine(test.squote);
+                }
             }
             
             string path = "Neutral";
